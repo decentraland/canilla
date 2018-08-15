@@ -1,0 +1,22 @@
+{
+  "navbar": {
+    "connecting": "Connecting..."
+  },
+  "languages": {
+    "en": "English",
+    "es": "Spanish"
+  },
+  "global": {
+    "domains": "Domains",
+    "domain": "Domain",
+    "loading": "Loading"
+  },
+  "domains_page": {
+    "title": "Domains Page",
+    "empty_domains": "No domains yet"
+  },
+  "domain_detail_page": {
+    "title": "Domain Detail Page",
+    "no_domain": "Domain does not exist"
+  }
+}
