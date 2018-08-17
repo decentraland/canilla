@@ -1,26 +1,24 @@
-import { Dispatch } from 'redux'
+import { Dispatch, AnyAction } from 'redux'
 import { connect } from 'react-redux'
 import { RootState } from 'types'
-import { DomainActions } from 'modules/domain/types'
 import { fetchDomainsRequest } from 'modules/domain/actions'
 import { getData, isLoading } from 'modules/domain/selectors'
-import { DomainsPageProps } from 'components/DomainsPage/types'
+import {
+  MapStateProps,
+  MapDispatchProps
+} from 'components/DomainsPage/DomainsPage.types'
 
 import DomainsPage from './DomainsPage'
 
-const mapState = (
-  state: RootState,
-  ownProps: DomainsPageProps
-): DomainsPageProps => {
+const mapState = (state: RootState): MapStateProps => {
   return {
-    ...ownProps,
     domains: getData(state),
     isLoading: isLoading(state)
   }
 }
 
-const mapDispatch = (dispatch: Dispatch<DomainActions>) => ({
+const mapDispatch = (dispatch: Dispatch<AnyAction>): MapDispatchProps => ({
   onFetchDomains: () => dispatch(fetchDomainsRequest())
 })
 
-export default connect<DomainsPageProps>(mapState, mapDispatch)(DomainsPage)
+export default connect(mapState, mapDispatch)(DomainsPage)
