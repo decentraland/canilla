@@ -7,7 +7,7 @@ import { transactionSaga } from '@dapps/modules/transaction/sagas'
 import { createTranslationSaga } from '@dapps/modules/translation/sagas'
 import { createWalletSaga } from '@dapps/modules/wallet/sagas'
 import { manaToken, landRegistry } from 'contracts'
-import { api } from 'lib/api'
+import * as translations from 'translations'
 
 const walletSaga = createWalletSaga({
   provider: env.get('REACT_APP_PROVIDER_URL'),
@@ -15,8 +15,8 @@ const walletSaga = createWalletSaga({
   eth
 })
 
-const translationSaga = createTranslationSaga({
-  getTranslation: locale => api.fetchTranslation(locale)
+export const translationSaga = createTranslationSaga({
+  translations
 })
 
 export function* rootSaga() {
