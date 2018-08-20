@@ -9,6 +9,7 @@ import WalletProvider from '@dapps/providers/WalletProvider'
 import Routes from './Routes'
 import { store, history } from './store'
 
+import 'decentraland-ui/lib/styles.css'
 import './index.css'
 
 ReactDOM.render(

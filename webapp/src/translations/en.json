@@ -4,16 +4,16 @@
     "es": "Spanish"
   },
   "global": {
-    "domains": "Domains",
-    "domain": "Domain",
-    "loading": "Loading"
+    "loading": "Loading",
+    "wallet": "Wallet",
+    "reconnect": "Reconnect",
+    "connecting": "Connecting",
+    "refill": "Refill"
   },
-  "domains_page": {
-    "title": "Domains Page",
-    "empty_domains": "No domains yet"
-  },
-  "domain_detail_page": {
-    "title": "Domain Detail Page",
-    "no_domain": "Domain does not exist"
+  "faucet_page": {
+    "title": "Decentraland Faucet",
+    "refill_with": "Fill your ropsten wallet with",
+    "no_wallet": "Could not find a valid wallet",
+    "already_toped_up": "Already toped up"
   }
 }
