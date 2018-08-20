@@ -36,7 +36,13 @@ export default class FaucetPage extends React.PureComponent<Props, State> {
   handleDisabledSubmit() {}
 
   render() {
-    const { isConnecting, isConnected, wallet, onConnectWallet } = this.props
+    const {
+      isConnecting,
+      isConnected,
+      isRefillIdle,
+      wallet,
+      onConnectWallet
+    } = this.props
     const isAlreadyTopedUp = !!wallet.mana && wallet.mana >= REFILL_AMOUNT
 
     return (
@@ -74,10 +80,13 @@ export default class FaucetPage extends React.PureComponent<Props, State> {
                 primary
                 type="submit"
                 disabled={!isConnected || isAlreadyTopedUp}
+                loading={isRefillIdle}
               >
                 {t('global.refill')}
               </Button>
-              {isConnected && isAlreadyTopedUp ? (
+              {isRefillIdle ? (
+                <i>{t('faucet_page.transaction_pending')}</i>
+              ) : isConnected && isAlreadyTopedUp ? (
                 <i>{t('faucet_page.already_toped_up')}</i>
               ) : null}
             </>

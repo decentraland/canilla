@@ -6,6 +6,7 @@ import { refillManaRequest } from 'modules/wallet/actions'
 export type Props = {
   isConnecting: boolean
   isConnected: boolean
+  isRefillIdle: boolean
   wallet: Partial<BaseWallet>
   onRefillMana: typeof refillManaRequest
   onConnectWallet: typeof connectWalletRequest

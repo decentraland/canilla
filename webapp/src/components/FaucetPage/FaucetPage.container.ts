@@ -7,6 +7,7 @@ import {
   isConnected
 } from '@dapps/modules/wallet/selectors'
 import { connectWalletRequest } from '@dapps/modules/wallet/actions'
+import { isRefillIdle } from 'modules/wallet/selectors'
 import { refillManaRequest } from 'modules/wallet/actions'
 import {
   MapStateProps,
@@ -17,10 +18,12 @@ import FaucetPage from './FaucetPage'
 
 const mapState = (state: RootState): MapStateProps => {
   const isWalletConnected = isConnected(state)
+  const wallet = getData(state)
 
   return {
     isConnecting: isConnecting(state),
     isConnected: isWalletConnected,
+    isRefillIdle: isRefillIdle(state, wallet.address).length > 0,
     wallet: getData(state)
   }
 }
