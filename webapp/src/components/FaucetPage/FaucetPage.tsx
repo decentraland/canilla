@@ -43,7 +43,8 @@ export default class FaucetPage extends React.PureComponent<Props, State> {
       wallet,
       onConnectWallet
     } = this.props
-    const isAlreadyTopedUp = !!wallet.mana && wallet.mana >= REFILL_AMOUNT
+    const isAlreadyTopedUp = isConnected && wallet.mana as number >= REFILL_AMOUNT
+    const isRopsten = isConnected && wallet.network === 'ropsten'
 
     return (
       <div className="FaucetPage">
@@ -79,14 +80,18 @@ export default class FaucetPage extends React.PureComponent<Props, State> {
               <Button
                 primary
                 type="submit"
-                disabled={!isConnected || isAlreadyTopedUp}
+                disabled={
+                  !isConnected || !isRopsten || isRefillIdle || isAlreadyTopedUp
+                }
                 loading={isRefillIdle}
               >
                 {t('global.refill')}
               </Button>
               {isRefillIdle ? (
                 <i>{t('faucet_page.transaction_pending')}</i>
-              ) : isConnected && isAlreadyTopedUp ? (
+              ) : !isRopsten ? (
+                <i>{t('faucet_page.incorrect_network')}</i>
+              ) : isAlreadyTopedUp ? (
                 <i>{t('faucet_page.already_toped_up')}</i>
               ) : null}
             </>
