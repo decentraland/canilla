@@ -8,13 +8,13 @@ import './Page.css'
 
 export default class Page extends React.PureComponent<Props> {
   render() {
-    const { children} = this.props
+    const { children } = this.props
 
     return (
       <>
         <Navbar />
         <div className="Page">
-          <Container text>{children}</Container>
+          <Container text={true}>{children}</Container>
         </div>
       </>
     )

@@ -33,7 +33,9 @@ export default class FaucetPage extends React.PureComponent<Props, State> {
     event.preventDefault()
   }
 
-  handleDisabledSubmit() {}
+  handleDisabledSubmit() {
+    // Nothing to do here
+  }
 
   render() {
     const {
@@ -43,7 +45,8 @@ export default class FaucetPage extends React.PureComponent<Props, State> {
       wallet,
       onConnectWallet
     } = this.props
-    const isAlreadyTopedUp = isConnected && wallet.mana as number >= REFILL_AMOUNT
+    const isAlreadyTopedUp =
+      isConnected && (wallet.mana as number) >= REFILL_AMOUNT
     const isRopsten = isConnected && wallet.network === 'ropsten'
 
     return (
@@ -51,7 +54,7 @@ export default class FaucetPage extends React.PureComponent<Props, State> {
         <Header size="large">{t('faucet_page.title')}</Header>
         <div>
           {t('faucet_page.refill_with')}{' '}
-          <Mana inline>{REFILL_AMOUNT.toLocaleString()}</Mana>
+          <Mana inline={true}>{REFILL_AMOUNT.toLocaleString()}</Mana>
         </div>
 
         <form
@@ -78,7 +81,7 @@ export default class FaucetPage extends React.PureComponent<Props, State> {
           {isConnecting ? null : isConnected ? (
             <>
               <Button
-                primary
+                primary={true}
                 type="submit"
                 disabled={
                   !isConnected || !isRopsten || isRefillIdle || isAlreadyTopedUp
@@ -96,7 +99,7 @@ export default class FaucetPage extends React.PureComponent<Props, State> {
               ) : null}
             </>
           ) : (
-            <Button secondary onClick={onConnectWallet}>
+            <Button secondary={true} onClick={onConnectWallet}>
               {t('global.reconnect')}
             </Button>
           )}

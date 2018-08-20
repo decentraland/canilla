@@ -11,11 +11,7 @@ export default class Routes extends React.Component {
     return (
       <Switch>
         <Route exact={true} path={locations.root()} component={FaucetPage} />
-        <Route
-          exact={true}
-          path={locations.faucet()}
-          component={FaucetPage}
-        />
+        <Route exact={true} path={locations.faucet()} component={FaucetPage} />
         <Redirect to={locations.root()} />
       </Switch>
     )

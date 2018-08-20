@@ -7,9 +7,7 @@ import {
   FETCH_TRANSACTION_SUCCESS,
   FetchTransactionSuccessAction
 } from '@dapps/modules/transaction/actions'
-import {
-  Transaction
-} from '@dapps/modules/transaction/types'
+import { Transaction } from '@dapps/modules/transaction/types'
 import {
   REFILL_MANA_SUCCESS,
   RefillManaRequestAction,
@@ -34,7 +32,7 @@ export function walletReducer(
 ) {
   switch (action.type) {
     case FETCH_TRANSACTION_SUCCESS: {
-      const transaction: SuccessTransaction = action.payload.transaction as any
+      const transaction = action.payload.transaction as SuccessTransaction
 
       switch (transaction.actionType) {
         case REFILL_MANA_SUCCESS: {
