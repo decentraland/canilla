@@ -1,0 +1,4 @@
+.FaucetPage .ui.button + i {
+  margin-left: 16px;
+  color: var(--secondary-text);
+}

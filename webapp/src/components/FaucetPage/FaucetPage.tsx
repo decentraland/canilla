@@ -2,7 +2,8 @@ import * as React from 'react'
 import { eth } from 'decentraland-eth'
 import { t } from '@dapps/modules/translation/utils'
 import { Props, State } from 'components/FaucetPage/FaucetPage.types'
-import { Header, Field, Button, Mana } from 'decentraland-ui'
+import { Header, Field, Button, Mana, Segment } from 'decentraland-ui'
+import './FaucetPage.css'
 
 const REFILL_AMOUNT = 100000 // 100k
 
@@ -50,12 +51,12 @@ export default class FaucetPage extends React.PureComponent<Props, State> {
     const isRopsten = isConnected && wallet.network === 'ropsten'
 
     return (
-      <div className="FaucetPage">
+      <Segment className="FaucetPage">
         <Header size="large">{t('faucet_page.title')}</Header>
-        <div>
+        <Header sub>
           {t('faucet_page.refill_with')}{' '}
           <Mana inline={true}>{REFILL_AMOUNT.toLocaleString()}</Mana>
-        </div>
+        </Header>
 
         <form
           onSubmit={
@@ -104,7 +105,7 @@ export default class FaucetPage extends React.PureComponent<Props, State> {
             </Button>
           )}
         </form>
-      </div>
+      </Segment>
     )
   }
 }
