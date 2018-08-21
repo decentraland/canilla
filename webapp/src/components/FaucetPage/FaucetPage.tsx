@@ -100,7 +100,7 @@ export default class FaucetPage extends React.PureComponent<Props, State> {
               ) : null}
             </>
           ) : (
-            <Button secondary onClick={onConnectWallet}>
+            <Button primary onClick={onConnectWallet}>
               {t('global.reconnect')}
             </Button>
           )}
