@@ -10,6 +10,7 @@ import Routes from './Routes'
 import { store, history } from './store'
 
 import 'decentraland-ui/lib/styles.css'
+import 'decentraland-ui/lib/dark-theme.css'
 import './index.css'
 
 ReactDOM.render(
