@@ -11,14 +11,14 @@ jobs:
           command: sudo apt-get update && sudo apt install -y libusb-1.0-0 libusb-1.0-0-dev
       - restore_cache:
           keys:
-            - frontend-dependencies-{{ checksum "webapp/package-lock.json" }}
+            - frontend-dependencies-v1-{{ checksum "webapp/package-lock.json" }}
       - run:
           name: (frontend) Install packages
           command: cd webapp && npm install
       - save_cache:
           paths:
             - node_modules
-          key: frontend-dependencies-{{ checksum "webapp/package-lock.json" }}
+          key: frontend-dependencies-v1-{{ checksum "webapp/package-lock.json" }}
       - run:
           name: (frontend) Build
           command: cd webapp && npm run build
