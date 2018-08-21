@@ -2,7 +2,8 @@ import * as React from 'react'
 import { eth } from 'decentraland-eth'
 import { t } from '@dapps/modules/translation/utils'
 import { Props, State } from 'components/FaucetPage/FaucetPage.types'
-import { Header, Field, Button, Mana } from 'decentraland-ui'
+import { Header, Field, Button, Mana, Segment } from 'decentraland-ui'
+import './FaucetPage.css'
 
 const REFILL_AMOUNT = 100000 // 100k
 
@@ -50,12 +51,12 @@ export default class FaucetPage extends React.PureComponent<Props, State> {
     const isRopsten = isConnected && wallet.network === 'ropsten'
 
     return (
-      <div className="FaucetPage">
+      <Segment className="FaucetPage">
         <Header size="large">{t('faucet_page.title')}</Header>
-        <div>
+        <Header sub>
           {t('faucet_page.refill_with')}{' '}
-          <Mana inline={true}>{REFILL_AMOUNT.toLocaleString()}</Mana>
-        </div>
+          <Mana inline>{REFILL_AMOUNT.toLocaleString()}</Mana>
+        </Header>
 
         <form
           onSubmit={
@@ -74,14 +75,14 @@ export default class FaucetPage extends React.PureComponent<Props, State> {
                   ? wallet.address
                   : t('faucet_page.no_wallet')
             }
-            disabled={true}
+            disabled
             loading={isConnecting}
           />
 
           {isConnecting ? null : isConnected ? (
             <>
               <Button
-                primary={true}
+                primary
                 type="submit"
                 disabled={
                   !isConnected || !isRopsten || isRefillIdle || isAlreadyTopedUp
@@ -99,12 +100,12 @@ export default class FaucetPage extends React.PureComponent<Props, State> {
               ) : null}
             </>
           ) : (
-            <Button secondary={true} onClick={onConnectWallet}>
+            <Button secondary onClick={onConnectWallet}>
               {t('global.reconnect')}
             </Button>
           )}
         </form>
-      </div>
+      </Segment>
     )
   }
 }
