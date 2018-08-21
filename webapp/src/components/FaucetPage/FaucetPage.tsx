@@ -55,7 +55,7 @@ export default class FaucetPage extends React.PureComponent<Props, State> {
         <Header size="large">{t('faucet_page.title')}</Header>
         <Header sub>
           {t('faucet_page.refill_with')}{' '}
-          <Mana inline={true}>{REFILL_AMOUNT.toLocaleString()}</Mana>
+          <Mana inline>{REFILL_AMOUNT.toLocaleString()}</Mana>
         </Header>
 
         <form
@@ -75,14 +75,14 @@ export default class FaucetPage extends React.PureComponent<Props, State> {
                   ? wallet.address
                   : t('faucet_page.no_wallet')
             }
-            disabled={true}
+            disabled
             loading={isConnecting}
           />
 
           {isConnecting ? null : isConnected ? (
             <>
               <Button
-                primary={true}
+                primary
                 type="submit"
                 disabled={
                   !isConnected || !isRopsten || isRefillIdle || isAlreadyTopedUp
@@ -100,7 +100,7 @@ export default class FaucetPage extends React.PureComponent<Props, State> {
               ) : null}
             </>
           ) : (
-            <Button secondary={true} onClick={onConnectWallet}>
+            <Button secondary onClick={onConnectWallet}>
               {t('global.reconnect')}
             </Button>
           )}
