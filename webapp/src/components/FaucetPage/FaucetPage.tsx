@@ -16,7 +16,7 @@ export default class FaucetPage extends React.PureComponent<Props, State> {
     }
   }
 
-  componentDidUpdate(prevProps: Props, prevState: State) {
+  componentDidUpdate(prevProps: Props) {
     const { wallet } = this.props
     if (!prevProps.wallet.address && wallet.address) {
       this.setState({ address: wallet.address })
