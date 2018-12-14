@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 
-import { locations } from 'locations'
+import App from '@dapps/containers/App'
 
-import Page from 'components/Page'
+import { locations } from 'locations'
 import FaucetPage from 'components/FaucetPage'
 
 export default class Routes extends React.Component {
@@ -18,6 +18,6 @@ export default class Routes extends React.Component {
   }
 
   render() {
-    return <Page>{this.renderRoutes()}</Page>
+    return <App locales={['en']}>{this.renderRoutes()}</App>
   }
 }

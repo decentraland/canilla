@@ -1,3 +1,7 @@
+.FaucetPage.ui.segment:first-child {
+  margin-top: calc(50vh - 260px);
+}
+
 .FaucetPage .ui.button + i {
   margin-left: 16px;
   color: var(--danger);

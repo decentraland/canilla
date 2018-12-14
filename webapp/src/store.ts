@@ -18,9 +18,9 @@ const history = createHistory()
 const historyMiddleware = routerMiddleware(history)
 const sagasMiddleware = createSagasMiddleware()
 
-const { storageMiddleware, loadStorageMiddleware } = createStorageMiddleware(
-  'dapp-boilerplate-storage-key'
-)
+const { storageMiddleware, loadStorageMiddleware } = createStorageMiddleware({
+  storageKey: 'decentraland-faucet'
+})
 
 const loggerMiddleware = createLogger({
   collapsed: () => true,
