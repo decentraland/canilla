@@ -1,9 +1,10 @@
 import * as React from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 
-import { locations } from 'locations'
+import App from '@dapps/containers/App'
+import SignInPage from '@dapps/containers/SignInPage'
 
-import Page from 'components/Page'
+import { locations } from 'locations'
 import FaucetPage from 'components/FaucetPage'
 
 export default class Routes extends React.Component {
@@ -12,12 +13,13 @@ export default class Routes extends React.Component {
       <Switch>
         <Route exact={true} path={locations.root()} component={FaucetPage} />
         <Route exact={true} path={locations.faucet()} component={FaucetPage} />
+        <Route exact={true} path={locations.signIn()} component={SignInPage} />
         <Redirect to={locations.root()} />
       </Switch>
     )
   }
 
   render() {
-    return <Page>{this.renderRoutes()}</Page>
+    return <App>{this.renderRoutes()}</App>
   }
 }

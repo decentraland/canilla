@@ -4,5 +4,6 @@ export interface Locations {
 
 export const locations: Locations = {
   root: () => '/',
-  faucet: () => '/faucet'
+  faucet: () => '/faucet',
+  signIn: () => '/sign-in'
 }
