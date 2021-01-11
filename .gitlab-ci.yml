@@ -1,0 +1,14 @@
+image: decentraland/ci-node:latest
+
+build:
+  only:
+    - master
+  script:
+    - cd webapp
+    - ./setupEnv.sh
+    - npm install && npm run build
+    - dcl-lock-sync
+    - cd .ci && npm install && dcl-up website-canilla
+    - dcl-sync-release && cd ..
+    - dcl-upload build
+    - cd .ci && dcl-cache-invalidation
