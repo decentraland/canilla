@@ -3,7 +3,7 @@ import { buildStatic } from 'dcl-ops-lib/buildStatic'
 
 async function main() {
   const market = buildStatic({
-    domain: `market.decentraland.${env === 'prd' ? 'org' : envTLD}`,
+    domain: `faucet.decentraland.${env === 'prd' ? 'org' : envTLD}`,
     defaultPath: 'index.html',
   })
 
