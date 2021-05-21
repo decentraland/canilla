@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@babel/polyfill": "^7.0.0",
     "@dcl/schemas": "^1.2.0",
     "@types/axios": "^0.14.0",
     "@types/node": "^10.1.2",
@@ -124,11 +123,6 @@
         "tsConfigFile": "/Users/nicosantangelo/Desktop/decentraland-dapp-boilerplate/webapp/tsconfig.test.json"
       }
     }
-  },
-  "babel": {
-    "presets": [
-      "react-app"
-    ]
   },
   "eslintConfig": {
     "extends": [
