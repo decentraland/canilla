@@ -7,7 +7,7 @@ async function main() {
   })
 
   buildStatic({
-    domain: `goerli.faucet.decentraland.io`,
+    domain: `faucet-goerli.decentraland.io`,
     defaultPath: 'index.html',
   })
 
