@@ -1,4 +1,7 @@
+import * as aws from "@pulumi/aws"
+import * as pulumi from "@pulumi/pulumi";
 import { buildStatic } from 'dcl-ops-lib/buildStatic'
+import { getDomainAndSubdomain } from 'dcl-ops-lib/getDomainAndSubdomain'
 
 async function main() {
   const faucetRopsten = buildStatic({
@@ -6,10 +9,7 @@ async function main() {
     defaultPath: 'index.html',
   })
 
-  buildStatic({
-    domain: `faucet-goerli.decentraland.io`,
-    defaultPath: 'index.html',
-  })
+  createAliasRecord(`faucet-goerli.decentraland.io`, { hostedZoneId: faucetRopsten.cloudfrontDistribution, domainName: faucetRopsten.cloudFrontDomain })
 
   return {
     cloudfrontDistribution: faucetRopsten.cloudfrontDistribution,
@@ -17,3 +17,22 @@ async function main() {
   }
 }
 export = main
+
+function createAliasRecord(targetDomain: string, distribution: { hostedZoneId: pulumi.Output<string>, domainName: pulumi.Output<string> }): aws.route53.Record {
+  const domainParts = getDomainAndSubdomain(targetDomain)
+  const hostedZoneId = aws.route53
+    .getZone({ name: domainParts.parentDomain }, { async: true })
+    .then((zone: { zoneId: string }) => zone.zoneId)
+  return new aws.route53.Record(targetDomain, {
+    name: domainParts.subdomain,
+    zoneId: hostedZoneId,
+    type: "A",
+    aliases: [
+      {
+        name: distribution.domainName,
+        zoneId: distribution.hostedZoneId,
+        evaluateTargetHealth: true,
+      },
+    ],
+  })
+}
