@@ -1,21 +1,22 @@
-import { Omit } from '@dapps/lib/types'
-import { BaseWallet } from '@dapps/modules/wallet/types'
-import { connectWalletRequest } from '@dapps/modules/wallet/actions'
-import { refillManaRequest } from 'modules/wallet/actions'
+import { Omit } from 'decentraland-dapps/dist//lib/types'
+import {
+  Wallet,
+  NetworkData
+} from 'decentraland-dapps/dist//modules/wallet/types'
+import { refillManaRequest } from '../../modules/wallet/actions'
 
 export type Props = {
   isConnecting: boolean
   isConnected: boolean
   isRefillIdle: boolean
-  wallet: Partial<BaseWallet>
+  wallet: Wallet | null
   onRefillMana: typeof refillManaRequest
-  onConnectWallet: typeof connectWalletRequest
 }
 
 export type State = {
-  address: BaseWallet['address']
-  mana: BaseWallet['mana']
+  address: Wallet['address']
+  mana: NetworkData['mana']
 }
 
-export type MapStateProps = Omit<Props, 'onRefillMana' | 'onConnectWallet'>
-export type MapDispatchProps = Pick<Props, 'onRefillMana' | 'onConnectWallet'>
+export type MapStateProps = Omit<Props, 'onRefillMana'>
+export type MapDispatchProps = Pick<Props, 'onRefillMana'>

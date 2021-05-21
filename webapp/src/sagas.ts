@@ -1,20 +1,15 @@
 import { all } from 'redux-saga/effects'
 
-import { locationSaga } from '@dapps/modules/location/sagas'
-import { transactionSaga } from '@dapps/modules/transaction/sagas'
-import { createTranslationSaga } from '@dapps/modules/translation/sagas'
-import { walletSaga } from 'modules/wallet/sagas'
-import * as translations from 'translations'
+import { transactionSaga } from 'decentraland-dapps/dist//modules/transaction/sagas'
+import { createTranslationSaga } from 'decentraland-dapps/dist//modules/translation/sagas'
+import { walletSaga } from './modules/wallet/sagas'
+
+import * as translations from './translations'
 
 export const translationSaga = createTranslationSaga({
-  translations
+  translations,
 })
 
 export function* rootSaga() {
-  yield all([
-    locationSaga(),
-    transactionSaga(),
-    translationSaga(),
-    walletSaga()
-  ])
+  yield all([transactionSaga(), walletSaga(), translationSaga() ])
 }

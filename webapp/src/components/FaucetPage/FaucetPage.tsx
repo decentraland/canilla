@@ -1,36 +1,17 @@
 import * as React from 'react'
-import { eth } from 'decentraland-eth'
-import { t } from '@dapps/modules/translation/utils'
-import { Props, State } from 'components/FaucetPage/FaucetPage.types'
-import { Header, Field, Button, Mana, Segment } from 'decentraland-ui'
+import { t } from 'decentraland-dapps/dist/modules/translation/utils'
+import { Props, State } from './FaucetPage.types'
+import { Page, Header, Field, Button, Mana, Segment } from 'decentraland-ui'
+import { Navbar } from 'decentraland-dapps/dist/containers'
 import './FaucetPage.css'
 
-const REFILL_AMOUNT = 100000 // 100k
+const REFILL_AMOUNT = '100000000000000000000000' // 100k
 
 export default class FaucetPage extends React.PureComponent<Props, State> {
-  constructor(props: Props) {
-    super(props)
-
-    this.state = {
-      address: '',
-      mana: REFILL_AMOUNT
-    }
-  }
-
-  componentDidUpdate(prevProps: Props) {
-    const { wallet } = this.props
-    if (!prevProps.wallet.address && wallet.address) {
-      this.setState({ address: wallet.address })
-    }
-  }
-
   handleRefilll = (event: React.FormEvent<HTMLFormElement>) => {
-    const { onRefillMana } = this.props
-    const { address, mana } = this.state
+    const { wallet, onRefillMana } = this.props
+    onRefillMana(wallet ? wallet.address : '', REFILL_AMOUNT)
 
-    if (eth.utils.isValidAddress(address)) {
-      onRefillMana(address, mana)
-    }
     event.preventDefault()
   }
 
@@ -39,53 +20,46 @@ export default class FaucetPage extends React.PureComponent<Props, State> {
   }
 
   render() {
-    const {
-      isConnecting,
-      isConnected,
-      isRefillIdle,
-      wallet,
-      onConnectWallet
-    } = this.props
-    const isAlreadyTopedUp =
-      isConnected && (wallet.mana as number) >= REFILL_AMOUNT
-    const isRopsten = isConnected && wallet.network === 'ropsten'
+    const  {isConnecting, isConnected, isRefillIdle, wallet  } = this.props
+
+    const mana = wallet && wallet.networks && wallet.networks.ETHEREUM
+        ? wallet.networks.ETHEREUM.mana : 0
+    const isAlreadyTopedUp  = isConnected && mana >= parseInt(REFILL_AMOUNT, 10)
 
     return (
-      <Segment className="FaucetPage">
+      <>
+      <Navbar />
+      <Page className="FaucetPage">
+       <Segment>
         <Header size="large">{t('faucet_page.title')}</Header>
-        <Header sub>
+          <Header sub>
           {t('faucet_page.refill_with')}{' '}
-          <Mana inline>{REFILL_AMOUNT.toLocaleString()}</Mana>
-        </Header>
+            <Mana inline>{REFILL_AMOUNT.toLocaleString()}</Mana>
+          </Header>
 
-        <form
-          onSubmit={
-            isConnected ? this.handleRefilll : this.handleDisabledSubmit
-          }
-        >
+          <form  onSubmit={isConnected ? this.handleRefilll : this.handleDisabledSubmit} >
           <br />
-          <br />
+            <br />
           <Field
             type={isConnected ? 'address' : 'text'}
             label={t('global.wallet')}
-            value={
-              isConnecting
-                ? t('global.connecting')
-                : isConnected
-                  ? wallet.address
-                  : t('faucet_page.no_wallet')
+            value={                 isConnecting
+              ? t('global.connecting')
+              : isConnected
+                ? wallet && wallet.address
+                : t('faucet_page.no_wallet')
             }
             disabled
             loading={isConnecting}
           />
 
-          {isConnecting ? null : isConnected ? (
-            <>
+            {isConnecting ? null : isConnected ? (
+              <>
               <Button
                 primary
                 type="submit"
                 disabled={
-                  !isConnected || !isRopsten || isRefillIdle || isAlreadyTopedUp
+                  !isConnected || isRefillIdle || isAlreadyTopedUp
                 }
                 loading={isRefillIdle}
               >
@@ -93,19 +67,15 @@ export default class FaucetPage extends React.PureComponent<Props, State> {
               </Button>
               {isRefillIdle ? (
                 <i>{t('faucet_page.transaction_pending')}</i>
-              ) : !isRopsten ? (
-                <i>{t('faucet_page.incorrect_network')}</i>
               ) : isAlreadyTopedUp ? (
                 <i>{t('faucet_page.already_toped_up')}</i>
               ) : null}
-            </>
-          ) : (
-            <Button primary onClick={onConnectWallet}>
-              {t('global.reconnect')}
-            </Button>
-          )}
+               </>
+          ) : null}
         </form>
       </Segment>
+      </Page>
+      </>
     )
   }
 }

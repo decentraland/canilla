@@ -1,31 +1,31 @@
 import { env } from 'decentraland-commons'
-import { routerMiddleware } from 'react-router-redux'
 import { applyMiddleware, compose, createStore } from 'redux'
 import { createLogger } from 'redux-logger'
-import createHistory from 'history/createBrowserHistory'
+import { routerMiddleware } from 'connected-react-router'
 import createSagasMiddleware from 'redux-saga'
-import { createStorageMiddleware } from '@dapps/modules/storage/middleware'
+import { createStorageMiddleware } from 'decentraland-dapps/dist//modules/storage/middleware'
+import { storageReducerWrapper } from 'decentraland-dapps/dist/modules/storage/reducer'
 
-import { createTransactionMiddleware } from '@dapps/modules/transaction/middleware'
-import { rootReducer } from './reducer'
+import { createTransactionMiddleware } from 'decentraland-dapps/dist//modules/transaction/middleware'
+import { createRootReducer } from './reducer'
 import { rootSaga } from './sagas'
 
 const composeEnhancers =
   (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
-const history = createHistory()
+const history = require('history').createBrowserHistory()
 
 const historyMiddleware = routerMiddleware(history)
 const sagasMiddleware = createSagasMiddleware()
 
 const { storageMiddleware, loadStorageMiddleware } = createStorageMiddleware({
-  storageKey: 'decentraland-faucet'
+  storageKey: 'decentraland-faucet',
 })
 
 const loggerMiddleware = createLogger({
   collapsed: () => true,
   predicate: (_: any, action) =>
-    env.isDevelopment() || action.type.includes('Failure')
+    env.isDevelopment() || action.type.includes('Failure'),
 })
 const transactionMiddleware = createTransactionMiddleware()
 
@@ -37,6 +37,7 @@ const middleware = applyMiddleware(
   storageMiddleware
 )
 const enhancer = composeEnhancers(middleware)
+const rootReducer = storageReducerWrapper(createRootReducer(history))
 const store = createStore(rootReducer, enhancer)
 
 sagasMiddleware.run(rootSaga)

@@ -1,15 +1,19 @@
-import { env, envTLD } from 'dcl-ops-lib/domain'
 import { buildStatic } from 'dcl-ops-lib/buildStatic'
 
 async function main() {
-  const market = buildStatic({
-    domain: `faucet.decentraland.${env === 'prd' ? 'org' : envTLD}`,
+  const faucetRopsten = buildStatic({
+    domain: `faucet.decentraland.io`,
+    defaultPath: 'index.html',
+  })
+
+  buildStatic({
+    domain: `goerli.faucet.decentraland.io`,
     defaultPath: 'index.html',
   })
 
   return {
-    cloudfrontDistribution: market.cloudfrontDistribution,
-    bucketName: market.contentBucket,
+    cloudfrontDistribution: faucetRopsten.cloudfrontDistribution,
+    bucketName: faucetRopsten.contentBucket,
   }
 }
 export = main

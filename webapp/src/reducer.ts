@@ -1,23 +1,19 @@
+import { History } from 'history'
 import { combineReducers } from 'redux'
-import { routerReducer as router } from 'react-router-redux'
+import { connectRouter } from 'connected-react-router'
 
-import { RootState } from 'types'
-import { transactionReducer as transaction } from '@dapps/modules/transaction/reducer'
-import { translationReducer as translation } from '@dapps/modules/translation/reducer'
-import { locationReducer as location } from '@dapps/modules/location/reducer'
-import {
-  storageReducer as storage,
-  storageReducerWrapper
-} from '@dapps/modules/storage/reducer'
-import { walletReducer as wallet } from 'modules/wallet/reducer'
+import { transactionReducer as transaction } from 'decentraland-dapps/dist//modules/transaction/reducer'
+import { translationReducer as translation } from 'decentraland-dapps/dist//modules/translation/reducer'
+import { storageReducer as storage } from 'decentraland-dapps/dist//modules/storage/reducer'
+import { walletReducer as wallet } from 'decentraland-dapps/dist/modules/wallet/reducer'
 
-export const rootReducer = storageReducerWrapper(
-  combineReducers<RootState>({
+export const createRootReducer = (history: History) =>
+  combineReducers({
     transaction,
     translation,
-    location,
-    router,
+    router: connectRouter(history),
     storage,
     wallet
   })
-)
+
+export type RootState = ReturnType<ReturnType<typeof createRootReducer>>

@@ -1,3 +1,9 @@
+.FaucetPage {
+  height: calc(100vh - 129px);
+  display: flex;
+  align-items: center;
+}
+
 .FaucetPage.ui.segment:first-child {
   margin-top: calc(50vh - 260px);
 }

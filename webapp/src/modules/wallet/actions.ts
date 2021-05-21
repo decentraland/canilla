@@ -1,24 +1,22 @@
 import { action } from 'typesafe-actions'
-import { BaseWallet } from '@dapps/modules/wallet/types'
-import { buildTransactionPayload } from '@dapps/modules/transaction/utils'
+import { buildTransactionPayload } from 'decentraland-dapps/dist//modules/transaction/utils'
+import { ChainId } from '@dcl/schemas'
 
 export const REFILL_MANA_REQUEST = '[Request] Refill MANA Wallet'
 export const REFILL_MANA_SUCCESS = '[Success] Refill MANA Wallet'
 export const REFILL_MANA_FAILURE = '[Failure] Refill MANA Wallet'
 
-export const refillManaRequest = (
-  address: BaseWallet['address'],
-  mana: BaseWallet['mana']
-) => action(REFILL_MANA_REQUEST, { address, mana })
+export const refillManaRequest = (address: string, mana: string) => action(REFILL_MANA_REQUEST, { address, mana })
 export const refillManaSuccess = (
   txHash: string,
-  address: BaseWallet['address'],
-  newMana: BaseWallet['mana']
+  address: string,
+  newMana: string,
+  chainId: ChainId
 ) =>
   action(REFILL_MANA_SUCCESS, {
     address,
     newMana,
-    ...buildTransactionPayload(txHash, { address, newMana })
+    ...buildTransactionPayload(chainId, txHash, { address, newMana })
   })
 export const refillManaFailure = (error: string) =>
   action(REFILL_MANA_FAILURE, { error })

@@ -1,19 +1,19 @@
 import {
   walletReducer as baseWallerReducer,
   INITIAL_STATE,
-  WalletReducerAction as BaseWalletReducerAction
-} from '@dapps/modules/wallet/reducer'
+  WalletReducerAction as BaseWalletReducerAction,
+} from 'decentraland-dapps/dist//modules/wallet/reducer'
 import {
   FETCH_TRANSACTION_SUCCESS,
-  FetchTransactionSuccessAction
-} from '@dapps/modules/transaction/actions'
-import { Transaction } from '@dapps/modules/transaction/types'
+  FetchTransactionSuccessAction,
+} from 'decentraland-dapps/dist//modules/transaction/actions'
+import { Transaction } from 'decentraland-dapps/dist//modules/transaction/types'
 import {
   REFILL_MANA_SUCCESS,
   RefillManaRequestAction,
   RefillManaSuccessAction,
-  RefillManaFailureAction
-} from 'modules/wallet/actions'
+  RefillManaFailureAction,
+} from '../../modules/wallet/actions'
 
 export type WalletReducerAction =
   | RefillManaRequestAction
@@ -40,8 +40,8 @@ export function walletReducer(
             ...state,
             data: {
               ...state.data,
-              mana: transaction.payload.newMana
-            }
+              mana: parseInt(transaction.payload.newMana, 10),
+            },
           }
         }
         default:

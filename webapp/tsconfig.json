@@ -2,9 +2,12 @@
   "compilerOptions": {
     "baseUrl": ".",
     "outDir": "build/dist",
-    "module": "commonjs",
+    "module": "esnext",
     "target": "es6",
-    "lib": ["es2017", "dom"],
+    "lib": [
+      "es2017",
+      "dom"
+    ],
     "sourceMap": true,
     "allowJs": true,
     "jsx": "react",
@@ -18,21 +21,22 @@
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedParameters": true,
     "noUnusedLocals": true,
-    "plugins": [{ "name": "tslint-language-service" }],
-    "paths": {
-      "@dapps/*": ["./node_modules/decentraland-dapps/dist/*"],
-      "components/*": ["./src/components/*"],
-      "lib/*": ["./src/lib/*"],
-      "modules/*": ["./src/modules/*"],
-      "themes/*": ["./src/themes/*"],
-      "reducer": ["./src/reducer"],
-      "types": ["./src/types"],
-      "store": ["./src/store"],
-      "locations": ["./src/locations"],
-      "contracts": ["./src/contracts"],
-      "translations": ["./src/translations"]
-    }
+    "plugins": [
+      {
+        "name": "tslint-language-service"
+      }
+    ],
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true
   },
+  "include": [
+    "src"
+  ],
   "exclude": [
     "node_modules",
     "build",

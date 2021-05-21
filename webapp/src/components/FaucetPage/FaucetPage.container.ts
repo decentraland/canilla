@@ -1,18 +1,14 @@
 import { connect } from 'react-redux'
-import { RootDispatch } from '@dapps/types'
-import { RootState } from 'types'
+import { RootDispatch } from 'decentraland-dapps/dist//types'
+import { RootState } from '../../reducer'
 import {
   getData,
   isConnecting,
-  isConnected
-} from '@dapps/modules/wallet/selectors'
-import { connectWalletRequest } from '@dapps/modules/wallet/actions'
-import { isRefillIdle } from 'modules/wallet/selectors'
-import { refillManaRequest } from 'modules/wallet/actions'
-import {
-  MapStateProps,
-  MapDispatchProps
-} from 'components/FaucetPage/FaucetPage.types'
+  isConnected,
+} from 'decentraland-dapps/dist//modules/wallet/selectors'
+import { isRefillIdle } from '../../modules/wallet/selectors'
+import { refillManaRequest } from '../../modules/wallet/actions'
+import { MapStateProps, MapDispatchProps } from './FaucetPage.types'
 
 import FaucetPage from './FaucetPage'
 
@@ -23,18 +19,14 @@ const mapState = (state: RootState): MapStateProps => {
   return {
     isConnecting: isConnecting(state),
     isConnected: isWalletConnected,
-    isRefillIdle: isRefillIdle(state, wallet.address).length > 0,
-    wallet: getData(state)
+    isRefillIdle: !!wallet && isRefillIdle(state, wallet.address).length > 0,
+    wallet: getData(state),
   }
 }
 
 const mapDispatch = (dispatch: RootDispatch): MapDispatchProps => ({
-  onRefillMana: (address: string, mana: number) =>
+  onRefillMana: (address: string, mana: string) =>
     dispatch(refillManaRequest(address, mana)),
-  onConnectWallet: () => dispatch(connectWalletRequest())
 })
 
-export default connect(
-  mapState,
-  mapDispatch
-)(FaucetPage)
+export default connect(mapState, mapDispatch)(FaucetPage)
