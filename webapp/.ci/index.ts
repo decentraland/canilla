@@ -27,6 +27,7 @@ function createAliasRecord(targetDomain: string, distribution: { hostedZoneId: p
     name: domainParts.subdomain,
     zoneId: hostedZoneId,
     type: "CNAME",
-    records: [distribution.domainName]
+    records: [distribution.domainName],
+    ttl: 5
   })
 }
