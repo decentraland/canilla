@@ -9,7 +9,7 @@ async function main() {
     defaultPath: 'index.html',
   })
 
-  //createAliasRecord(`faucet-goerli.decentraland.io`, { hostedZoneId: faucetRopsten.cloudfrontDistribution, domainName: faucetRopsten.cloudFrontDomain })
+  createAliasRecord(`faucet-goerli.decentraland.io`, { hostedZoneId: faucetRopsten.cloudfrontDistribution, domainName: faucetRopsten.cloudFrontDomain })
 
   return {
     cloudfrontDistribution: faucetRopsten.cloudfrontDistribution,
@@ -17,7 +17,7 @@ async function main() {
   }
 }
 export = main
-/* 
+
 function createAliasRecord(targetDomain: string, distribution: { hostedZoneId: pulumi.Output<string>, domainName: pulumi.Output<string> }): aws.route53.Record {
   const domainParts = getDomainAndSubdomain(targetDomain)
   const hostedZoneId = aws.route53
@@ -30,4 +30,4 @@ function createAliasRecord(targetDomain: string, distribution: { hostedZoneId: p
     records: [distribution.domainName],
     ttl: 5
   })
-} */
+}
