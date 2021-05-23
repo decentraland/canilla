@@ -10,7 +10,8 @@ async function main() {
     defaultPath: 'index.html',
   })
 
-  createAliasRecord(`faucet-goerli.decentraland.io`, { hostedZoneId: faucet.cloudfrontDistribution, domainName: faucet.cloudFrontDomain })
+
+  createAliasRecord(`faucet-goerli.decentraland.io`, { hostedZoneId: faucet.cloudfrontHostedZoneId, domainName: faucet.cloudFrontDomain })
 
   return {
     cloudfrontDistribution: faucet.cloudfrontDistribution,
