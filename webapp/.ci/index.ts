@@ -15,6 +15,7 @@ async function main() {
     cloudfrontDistribution: faucetRopsten.cloudfrontDistribution,
     bucketName: faucetRopsten.contentBucket,
   }
+  faucetRopsten.
 }
 export = main
 
@@ -26,13 +27,7 @@ function createAliasRecord(targetDomain: string, distribution: { hostedZoneId: p
   return new aws.route53.Record(targetDomain, {
     name: domainParts.subdomain,
     zoneId: hostedZoneId,
-    type: "A",
-    aliases: [
-      {
-        name: distribution.domainName,
-        zoneId: distribution.hostedZoneId,
-        evaluateTargetHealth: true,
-      },
-    ],
+    type: "CNAME",
+    records: [distribution.domainName]
   })
 }
