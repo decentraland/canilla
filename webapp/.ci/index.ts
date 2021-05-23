@@ -15,7 +15,6 @@ async function main() {
     cloudfrontDistribution: faucetRopsten.cloudfrontDistribution,
     bucketName: faucetRopsten.contentBucket,
   }
-  faucetRopsten.
 }
 export = main
 
